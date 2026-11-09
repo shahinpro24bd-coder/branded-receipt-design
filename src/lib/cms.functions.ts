@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+import type { Database } from "@/lib/backend/types";
 import type { SiteContent } from "@/lib/cms";
 
 // Public read of the editable site content (site_content allows anonymous reads).
@@ -34,7 +34,7 @@ export const getSiteContent = createServerFn({ method: "GET" }).handler(async ()
 // True while no admin account exists yet (first-time setup).
 export const adminSetupStatus = createServerFn({ method: "GET" }).handler(async () => {
   try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin } = await import("@/lib/backend/client.server");
     const { count } = await supabaseAdmin.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "admin");
     return { needsSetup: (count ?? 0) === 0 };
   } catch {
@@ -49,7 +49,7 @@ export const ensureAdminAccount = createServerFn({ method: "POST" })
     return { password: d.password };
   })
   .handler(async ({ data: input }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin } = await import("@/lib/backend/client.server");
     const { count } = await supabaseAdmin.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "admin");
     if ((count ?? 0) > 0) return { created: false, error: "An admin account already exists." };
     let userId: string | undefined;

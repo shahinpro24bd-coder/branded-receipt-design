@@ -7,7 +7,7 @@ import { resolveImg } from "@/lib/images";
 import { defaults, makeSlug, mergeServices, type CmsCompany, type CmsFaq, type CmsService } from "@/lib/cms";
 import { seoDefaults } from "@/lib/seo";
 import { IconPicker } from "@/components/admin/IconPicker";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables } from "@/lib/backend/types";
 import { Invoices } from "@/components/admin/Billing";
 import { services as siteServices } from "@/lib/site";
 

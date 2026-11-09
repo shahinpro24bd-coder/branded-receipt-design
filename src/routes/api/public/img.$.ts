@@ -9,7 +9,7 @@ export const Route = createFileRoute("/api/public/img/$")({
         if (!/^[\w.-]+$/.test(path)) return new Response("Not found", { status: 404 });
         let data: Blob | null = null;
         try {
-          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          const { supabaseAdmin } = await import("@/lib/backend/client.server");
           const res = await supabaseAdmin.storage.from("site-images").download(path);
           data = res.data;
         } catch {

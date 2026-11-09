@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/backend/client";
 
 // Ten years: the link must keep working for as long as the photo stays on the site.
 const LINK_LIFETIME = 60 * 60 * 24 * 365 * 10;
